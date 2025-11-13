@@ -9,7 +9,7 @@ from src.services.questions_answers import (
 from src.schemas.questions_answers import QuestionCreate, QuestionRead
 from src.core.db_config import db_dependency
 
-questions_router = APIRouter(prefix="/questions", tags=["questions"])
+questions_router = APIRouter(prefix="/questions", tags=["Questions"])
 
 
 @questions_router.get(
