@@ -19,7 +19,8 @@ class AppSettings(BaseSettings):
 
     @property
     def postgres_dsn(self) -> str:
-        return f"postgresql+asyncpg://{self.postgres_user}:{self.postgres_password}@{self.postgres_host}:{self.postgres_port}/{self.postgres_db}"
+        return (f"postgresql+asyncpg://{self.postgres_user}:{self.postgres_password}@"
+                f"{self.postgres_host}:{self.postgres_port}/{self.postgres_db}")
 
     host: str = Field(default="localhost", env="HOST")
     port: int = Field(default=8000, env="PORT")
