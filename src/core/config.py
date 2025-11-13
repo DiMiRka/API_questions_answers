@@ -15,7 +15,7 @@ class AppSettings(BaseSettings):
     postgres_password: str = Field(default="postgres", env="POSTGRES_PASSWORD")
     postgres_host: str = Field(default="db", env="POSTGRES_HOST")
     postgres_port: str = Field(default="5432", env="POSTGRES_PORT")
-    postgres_db: str = Field(default="Pereval", env="POSTGRES_DB")
+    postgres_db: str = Field(default="QuestionAnswer", env="POSTGRES_DB")
 
     @property
     def postgres_dsn(self) -> str:
