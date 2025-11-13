@@ -9,7 +9,7 @@ import sys
 import os
 
 from src.core.config import app_settings
-from src.models import Base, Question, Answer
+from src.models import Base
 
 sys.path.append(os.path.join(os.getcwd(), "src"))
 
