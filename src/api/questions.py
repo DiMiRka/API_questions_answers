@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException, status
+from fastapi import APIRouter, HTTPException, status, Response
 from fastapi.responses import JSONResponse
 from src.services.questions_answers import (
     get_all_questions,
@@ -66,10 +66,7 @@ async def get_question(question_id: int, db: db_dependency):
 async def remove_question(question_id: int, db: db_dependency):
     try:
         await delete_question(db, question_id)
-        return JSONResponse(
-            status_code=status.HTTP_204_NO_CONTENT,
-            content={"status": 204, "message": "Вопрос удален"},
-        )
+        return Response(status_code=status.HTTP_204_NO_CONTENT)
     except Exception as e:
         await db.rollback()
         return JSONResponse(status_code=500, content={"status": 500, "message": str(e)})
