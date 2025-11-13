@@ -35,18 +35,16 @@ async def delete_question(db: AsyncSession, question_id: int) -> bool:
     return True
 
 
-async def create_answer(db: AsyncSession, question_id: int, answer: AnswerCreate) -> Optional[Answer]:
+async def create_answer(
+    db: AsyncSession, question_id: int, answer: AnswerCreate
+) -> Optional[Answer]:
 
     q_result = await db.execute(select(Question).where(Question.id == question_id))
     question = q_result.scalar_one_or_none()
     if not question:
         return None
 
-    new_answer = Answer(
-        question_id=question_id,
-        user_id=answer.user_id,
-        text=answer.text
-    )
+    new_answer = Answer(question_id=question_id, user_id=answer.user_id, text=answer.text)
     db.add(new_answer)
     await db.commit()
     await db.refresh(new_answer)
