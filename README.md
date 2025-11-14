@@ -53,7 +53,7 @@ API_questions_answers/
 ├── .flake8                        # Конфигурация линтера
 ├── .gitignore                     # Игнорируемые файлы Git
 ├── alembic.ini                    # Конфигурация Alembic
-├── docker-compose.yml             # Docker конфигурация
+├── docker-compose.yml             # Конфигурация Docker
 ├── docker-entrypoint.sh           # Скрипт инициализации
 ├── Dockerfile                     # Сборка образа FastAPI
 ├── pyproject.toml                 # Конфигурация проекта
