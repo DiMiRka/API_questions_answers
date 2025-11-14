@@ -53,6 +53,8 @@ async def get_question(question_id: int, db: db_dependency):
         if not question:
             raise HTTPException(status_code=404, detail="Вопрос не найден")
         return question
+    except HTTPException:
+        raise
     except Exception as e:
         return JSONResponse(status_code=500, content={"status": 500, "message": str(e)})
 
@@ -65,8 +67,12 @@ async def get_question(question_id: int, db: db_dependency):
 )
 async def remove_question(question_id: int, db: db_dependency):
     try:
-        await delete_question(db, question_id)
+        result = await delete_question(db, question_id)
+        if not result:
+            raise HTTPException(status_code=404, detail="Вопрос не найден")
         return Response(status_code=status.HTTP_204_NO_CONTENT)
+    except HTTPException:
+        raise
     except Exception as e:
         await db.rollback()
         return JSONResponse(status_code=500, content={"status": 500, "message": str(e)})

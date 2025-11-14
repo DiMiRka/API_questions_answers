@@ -1,6 +1,6 @@
 from datetime import datetime
 from typing import List
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, ConfigDict
 
 
 class AnswerCreate(BaseModel):
@@ -9,14 +9,13 @@ class AnswerCreate(BaseModel):
 
 
 class AnswerRead(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
     id: int
     question_id: int
     user_id: str
     text: str
     created_at: datetime
-
-    class Config:
-        orm_mode = True
 
 
 class QuestionCreate(BaseModel):
@@ -24,10 +23,9 @@ class QuestionCreate(BaseModel):
 
 
 class QuestionRead(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
     id: int
     text: str
     created_at: datetime
     answers: List[AnswerRead] = Field(default_factory=list)
-
-    class Config:
-        orm_mode = True

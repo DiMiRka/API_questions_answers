@@ -1,7 +1,6 @@
 import os
 from pathlib import Path
-
-from pydantic import Field
+from pydantic import Field, ConfigDict
 from pydantic_settings import BaseSettings
 from dotenv import load_dotenv
 
@@ -11,11 +10,17 @@ load_dotenv(env_path)
 
 
 class AppSettings(BaseSettings):
-    postgres_user: str = Field(default="postgres", env="POSTGRES_USER")
-    postgres_password: str = Field(default="postgres", env="POSTGRES_PASSWORD")
-    postgres_host: str = Field(default="db", env="POSTGRES_HOST")
-    postgres_port: str = Field(default="5432", env="POSTGRES_PORT")
-    postgres_db: str = Field(default="QuestionAnswer", env="POSTGRES_DB")
+    model_config = ConfigDict(env_file=env_path, env_file_encoding="utf-8", extra="ignore")
+
+    postgres_user: str = Field(default="postgres", json_schema_extra={"env": "POSTGRES_USER"})
+    postgres_password: str = Field(
+        default="postgres", json_schema_extra={"env": "POSTGRES_PASSWORD"}
+    )
+    postgres_host: str = Field(default="db", json_schema_extra={"env": "POSTGRES_HOST"})
+    postgres_port: str = Field(default="5432", json_schema_extra={"env": "POSTGRES_PORT"})
+    postgres_db: str = Field(
+        default="QuestionAnswer", json_schema_extra={"env": "POSTGRES_DB"}
+    )
 
     @property
     def postgres_dsn(self) -> str:
@@ -24,14 +29,9 @@ class AppSettings(BaseSettings):
             f"{self.postgres_host}:{self.postgres_port}/{self.postgres_db}"
         )
 
-    host: str = Field(default="localhost", env="HOST")
-    port: int = Field(default=8000, env="PORT")
-    reload: bool = Field(default=True, env="RELOAD")
-
-    class Config:
-        _env_file = ".env"
-        env_file_encoding = "utf-8"
-        extra = "ignore"
+    host: str = Field(default="localhost", json_schema_extra={"env": "HOST"})
+    port: int = Field(default=8000, json_schema_extra={"env": "PORT"})
+    reload: bool = Field(default=True, json_schema_extra={"env": "RELOAD"})
 
 
 app_settings = AppSettings()
