@@ -31,8 +31,7 @@ async def create_question(db: AsyncSession, question: QuestionCreate) -> Questio
         .options(selectinload(Question.answers))
         .where(Question.id == new_question.id)
     )
-    db_question = result.scalar_one()
-    return db_question
+    return result.scalar_one()
 
 
 async def delete_question(db: AsyncSession, question_id: int) -> bool:
