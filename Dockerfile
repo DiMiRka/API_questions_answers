@@ -9,6 +9,8 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/* \
     && apt-get clean
 
+RUN mkdir -p /app/logs
+
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 

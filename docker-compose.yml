@@ -16,6 +16,9 @@ services:
       - HOST=0.0.0.0
       - PORT=8000
       - RELOAD=false
+      - LOG_LEVEL=INFO
+      - LOG_FORMAT=json
+      - LOG_EXCLUDED_PATHS=/api/openapi,/openapi.json,/docs,/redoc,/favicon.ico
     depends_on:
       db:
         condition: service_healthy
