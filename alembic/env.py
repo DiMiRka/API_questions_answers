@@ -8,18 +8,16 @@ from alembic import context
 import sys
 import os
 
-from src.core.config import app_settings
 from src.models import Base
+from src.core.config import app_settings
 
 sys.path.append(os.path.join(os.getcwd(), "src"))
 
-POSTGRES_DSN = os.getenv(
-    "POSTGRES_URL", "postgresql+asyncpg://postgres:dima-784512@localhost:5432/QuestionAnswer"
-)
+POSTGRES_DSN = str(app_settings.postgres_dsn)
 
 config = context.config
 fileConfig(config.config_file_name)
-config.set_main_option("sqlalchemy.url", str(app_settings.postgres_dsn))
+config.set_main_option("sqlalchemy.url", POSTGRES_DSN)
 
 target_metadata = Base.metadata
 
