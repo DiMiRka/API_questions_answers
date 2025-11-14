@@ -33,7 +33,8 @@ async def get_question_with_answers(db: AsyncSession, question_id: int) -> Optio
         question = result.scalar_one_or_none()
         if question:
             logger.info(
-                f"Успешно получен вопрос с ID {question_id} и {len(question.answers)} ответами на него"
+                f"Успешно получен вопрос с ID {question_id} "
+                f"и {len(question.answers)} ответами на него"
             )
         else:
             logger.warning(f"Вопрос с ID {question_id} не найден")
