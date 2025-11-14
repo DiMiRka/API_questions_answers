@@ -10,7 +10,7 @@ from src.services.questions_answers import (
 )
 from src.core.logging import get_logger
 
-logger = get_logger('questions_answers.api.answers')
+logger = get_logger("questions_answers.api.answers")
 
 answers_router = APIRouter(prefix="/answers", tags=["Answers"])
 
@@ -23,14 +23,20 @@ answers_router = APIRouter(prefix="/answers", tags=["Answers"])
 )
 async def post_answer(db: db_dependency, question_id: int, answer: AnswerCreate):
     try:
-        logger.info(f"POST/answers/question/{question_id} Создаем ответ к вопросу с ID {question_id}")
+        logger.info(
+            f"POST/answers/question/{question_id} Создаем ответ к вопросу с ID {question_id}"
+        )
         question = await get_question_with_answers(db, question_id)
         if not question:
-            logger.warning(f"POST/answers/question/{question_id} Вопрос с ID {question_id} не найден")
+            logger.warning(
+                f"POST/answers/question/{question_id} Вопрос с ID {question_id} не найден"
+            )
             raise HTTPException(status_code=404, detail="Вопрос не найден")
 
         db_answer = await create_answer(db, question_id, answer)
-        logger.info(f"POST/answers/question/{question_id} Успешно создан ответ с ID {db_answer.id}")
+        logger.info(
+            f"POST/answers/question/{question_id} Успешно создан ответ с ID {db_answer.id}"
+        )
         return db_answer
     except HTTPException:
         raise

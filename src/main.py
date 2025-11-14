@@ -11,7 +11,7 @@ from src.api import api_router
 from src.core.logging import setup_logging, get_logger
 
 setup_logging()
-logger = get_logger('questions_answers.main')
+logger = get_logger("questions_answers.main")
 
 env_path = Path(".") / (".env.docker" if os.getenv("DOCKER_MODE") else ".env")
 load_dotenv(env_path)
@@ -23,9 +23,10 @@ async def lifespan(app: FastAPI):
     yield
     logger.info("Отключение приложения")
 
-app = FastAPI(title="API-сервис вопросов и ответов",
-              docs_url="/api/openapi",
-              lifespan=lifespan)
+
+app = FastAPI(
+    title="API-сервис вопросов и ответов", docs_url="/api/openapi", lifespan=lifespan
+)
 
 
 app.add_middleware(

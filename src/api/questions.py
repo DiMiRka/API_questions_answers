@@ -10,12 +10,13 @@ from src.schemas.questions_answers import QuestionCreate, QuestionRead
 from src.core.db_config import db_dependency
 from src.core.logging import get_logger
 
-logger = get_logger('questions_answers.api.questions')
+logger = get_logger("questions_answers.api.questions")
 questions_router = APIRouter(prefix="/questions", tags=["Questions"])
 
 
 @questions_router.get(
-    "/", response_model=list[QuestionRead], summary="Получить список всех вопросов")
+    "/", response_model=list[QuestionRead], summary="Получить список всех вопросов"
+)
 async def list_questions(db: db_dependency):
     try:
         logger.info("GET/questions Получаем список всех вопросов")
@@ -81,9 +82,13 @@ async def remove_question(question_id: int, db: db_dependency):
         logger.info(f"DELETE/questions/{question_id} Удаляем вопрос с ID {question_id}")
         result = await delete_question(db, question_id)
         if not result:
-            logger.warning(f"DELETE/questions/{question_id} Вопрос с ID {question_id} не найден")
+            logger.warning(
+                f"DELETE/questions/{question_id} Вопрос с ID {question_id} не найден"
+            )
             raise HTTPException(status_code=404, detail="Вопрос не найден")
-        logger.info(f"DELETE/questions/{question_id} Успешно удален вопрос с ID {question_id}")
+        logger.info(
+            f"DELETE/questions/{question_id} Успешно удален вопрос с ID {question_id}"
+        )
         return Response(status_code=status.HTTP_204_NO_CONTENT)
     except HTTPException:
         raise

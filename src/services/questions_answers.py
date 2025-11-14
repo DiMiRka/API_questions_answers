@@ -7,7 +7,7 @@ from src.models.questions_answers import Question, Answer
 from src.schemas.questions_answers import QuestionCreate, AnswerCreate
 from src.core.logging import get_logger
 
-logger = get_logger('questions_answers.services')
+logger = get_logger("questions_answers.services")
 
 
 async def get_all_questions(db: AsyncSession) -> List[Question]:
@@ -32,7 +32,9 @@ async def get_question_with_answers(db: AsyncSession, question_id: int) -> Optio
         )
         question = result.scalar_one_or_none()
         if question:
-            logger.info(f"Успешно получен вопрос с ID {question_id} и {len(question.answers)} ответами на него")
+            logger.info(
+                f"Успешно получен вопрос с ID {question_id} и {len(question.answers)} ответами на него"
+            )
         else:
             logger.warning(f"Вопрос с ID {question_id} не найден")
         return question
@@ -95,7 +97,9 @@ async def create_answer(
         db.add(new_answer)
         await db.commit()
         await db.refresh(new_answer)
-        logger.info(f"Успешно создан ответ с ID {new_answer.id} для вопроса с ID {question_id}")
+        logger.info(
+            f"Успешно создан ответ с ID {new_answer.id} для вопроса с ID {question_id}"
+        )
         return new_answer
     except Exception as e:
         logger.error(f"Ошибка при создании ответа к вопросу с ID {question_id}: {str(e)}")
