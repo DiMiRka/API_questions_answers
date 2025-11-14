@@ -40,12 +40,12 @@ API_questions_answers/
 │   │
 │   └── main.py                    # Точка входа в приложение
 │
-├── tests/		           # Тесты Pytest 
+├── tests/		                   # Тесты Pytest 
 │   ├── __init.py__
-│   ├── conftest.py	           # Фикстуры
+│   ├── conftest.py	               # Фикстуры
 │   ├── test_answers.py	           # Тесты эндопоинтов ответов
-│   ├── test_questions.py	   # Тесты эндопоинтов вопросов
-│   └── test_services.py	   # Тесты бизнес логики
+│   ├── test_questions.py	       # Тесты эндопоинтов вопросов
+│   └── test_services.py	       # Тесты бизнес логики
 │
 ├── .dockerignore                  # Игнорируемые файлы Docker
 ├── .env                           # Файл локального окружения
