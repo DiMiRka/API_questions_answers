@@ -10,3 +10,16 @@ testpaths = [
 markers = [
     "asyncio: mark test as asyncio to run async code"
 ]
+
+[tool.flake8]
+max-line-length = 94
+ignore = [
+    "E203",
+    "W503",
+]
+exclude = [
+    ".git",
+    "__pycache__",
+    "env",
+    "venv",
+]

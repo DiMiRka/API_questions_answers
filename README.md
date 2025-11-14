@@ -50,7 +50,6 @@ API_questions_answers/
 ├── .dockerignore                  # Игнорируемые файлы Docker
 ├── .env                           # Файл локального окружения (создается самостоятельно)
 ├── .env.docker                    # Файл Docker окружения
-├── .flake8                        # Конфигурация линтера
 ├── .gitignore                     # Игнорируемые файлы Git
 ├── alembic.ini                    # Конфигурация Alembic
 ├── docker-compose.yml             # Конфигурация Docker
