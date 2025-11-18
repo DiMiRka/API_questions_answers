@@ -16,7 +16,7 @@ def mock_question_model():
     question = MagicMock(spec=Question)
     question.id = 1
     question.text = "Test question"
-    question.answers = []
+    question.answers = [MagicMock]
     return question
 
 

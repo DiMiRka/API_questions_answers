@@ -8,7 +8,7 @@ async def test_create_question(test_client: AsyncClient, mock_question_read):
     with patch(
         "src.api.questions.create_question", new=AsyncMock(return_value=mock_question_read)
     ):
-        response = await test_client.post("/questions/", json={"text": "Как тебя зовут?"})
+        response = await test_client.post("/questions/", json={"text": "Test question"})
 
     assert response.status_code == 201
     data = response.json()

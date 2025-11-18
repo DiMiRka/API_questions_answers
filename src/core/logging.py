@@ -3,13 +3,13 @@ import sys
 from pathlib import Path
 from logging.handlers import RotatingFileHandler
 import json
-from datetime import datetime
+from datetime import datetime, timezone
 
 
 class JSONFormatter(logging.Formatter):
     def format(self, record):
         log_data = {
-            "timestamp": datetime.utcnow().isoformat() + "Z",
+            "timestamp": datetime.now(timezone.utc).isoformat(),
             "level": record.levelname,
             "logger": record.name,
             "message": record.getMessage(),
