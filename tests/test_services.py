@@ -63,12 +63,17 @@ async def test_create_question(mock_session, mock_question_model):
 
         mock_session.execute.return_value = make_scalar_result(mock_question_model)
 
-        with patch("src.services.questions_answers.Question", side_effect=lambda **kwargs: new_question):
+        with patch(
+            "src.services.questions_answers.Question",
+            side_effect=lambda **kwargs: new_question,
+        ):
             result = await create_question(mock_session, payload)
 
         mock_session.add.assert_called_once_with(new_question)
         mock_session.commit.assert_called_once()
-        mock_session.refresh.assert_called_once_with(new_question, attribute_names=["answers"])
+        mock_session.refresh.assert_called_once_with(
+            new_question, attribute_names=["answers"]
+        )
         assert result == mock_question_model
 
 
@@ -146,6 +151,7 @@ async def test_create_answer_database_error(mock_session, mock_question_model):
     mock_session.commit.side_effect = Exception("Database error")
 
     from src.services.questions_answers import Answer as AnswerModel
+
     AnswerModel.__call__ = MagicMock()
 
     with pytest.raises(Exception, match="Database error"):
