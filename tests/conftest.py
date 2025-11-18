@@ -72,8 +72,8 @@ async def mock_session():
     session.close = AsyncMock()
     session.get = AsyncMock()
     session.execute = AsyncMock()
-    session.add = Mock()  # Синхронный метод
-    session.delete = AsyncMock()  # Синхронный метод
+    session.add = Mock()
+    session.delete = AsyncMock()
     session.refresh = AsyncMock()
 
     return session
